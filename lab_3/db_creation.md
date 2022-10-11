@@ -5,7 +5,7 @@ CREATE DATABASE f1_university_projects;
 
 ### 2. Создание таблиц
 
-#### 2.1 Tires table
+#### 2.1. Tires table
 ```SQL
 CREATE TABLE tires(
 	tires_type VARCHAR(30) UNIQUE NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE tires(
 ```
 
 
-#### 2.2 Track table
+#### 2.2. Track table
 ```SQL
 CREATE TABLE track(
 	track_id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -27,7 +27,7 @@ CREATE TABLE track(
 );
 ```
 
-#### 2.3 Tires_on_Track table
+#### 2.3. Tires_on_Track table
 ```SQL
 CREATE TABLE tires_on_track(
 	tires_type VARCHAR(30) REFERENCES tires (tires_type) ON UPDATE CASCADE ON DELETE NO ACTION,
@@ -38,7 +38,7 @@ CREATE TABLE tires_on_track(
 	CONSTRAINT tires_on_track_pkey PRIMARY KEY (tires_type, tires_brand, track_id)
 );
 ```
-#### 2.4 Grand_Prix table
+#### 2.4. Grand_Prix table
 ```SQL
 CREATE TABLE grand_prix(
 	grand_prix_id INT PRIMARY KEY ALWAYS GENERATED AS IDENTITY,
