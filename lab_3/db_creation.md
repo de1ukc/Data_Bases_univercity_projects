@@ -17,7 +17,7 @@ CREATE TABLE tires(
 
 #### 2.2 Track table
 ```SQL
-CREATE TABLE Track(
+CREATE TABLE track(
 	track_id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 	circle_length DECIMAL NOT NULL,
 	number_of_circles INT NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE tires_on_track(
 	CONSTRAINT tires_on_track_pkey PRIMARY KEY (tires_type, tires_brand, track_id)
 );
 ```
-
+#### 2.4 Grand_Prix table
 ```SQL
 CREATE TABLE grand_prix(
 	grand_prix_id INT PRIMARY KEY ALWAYS GENERATED AS IDENTITY,
