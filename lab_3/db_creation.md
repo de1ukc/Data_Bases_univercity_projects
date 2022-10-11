@@ -41,7 +41,7 @@ CREATE TABLE tires_on_track(
 #### 2.4. Grand_Prix table
 ```SQL
 CREATE TABLE grand_prix(
-	grand_prix_id INT PRIMARY KEY ALWAYS GENERATED AS IDENTITY,
+	grand_prix_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 	track_id REFERENCES track (track_id) ON UPDATE CASCADE ON DELETE NO ACTION,
 	date_of_gran_prix DATE,
 	winner_id REFERENCES pilot (pilot_id) NULLABLE ON UPDATE CASCADE ON DELETE NO ACTION,
@@ -50,8 +50,17 @@ CREATE TABLE grand_prix(
 	track_name VARCHAR(30) NOT NULL UNIQUE
 );
 ```
-
-```SQL```
+#### 2.5. Team table
+```SQL
+CREATE TABLE team(
+	team_id INT PRIMARY KEY  GENERATED ALWAYS AS IDENTITY,
+	
+	team_principal VARCHAR(30) NOT NULL,
+	budget INT NOT NULL,
+	country VARCHAR(30) NOT NULL,
+	team_name VARCHAR(50) NOT NULL
+);
+```
 
 ```SQL```
 
