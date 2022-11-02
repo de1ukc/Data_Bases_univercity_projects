@@ -8,8 +8,8 @@ CREATE DATABASE f1_university_projects;
 #### 2.1. Tires table
 ```SQL
 CREATE TABLE tires(
-	tires_type VARCHAR(30) UNIQUE NOT NULL,
-	tires_brand VARCHAR(30) UNIQUE NOT NULL,
+	tires_type VARCHAR(30) NOT NULL,
+	tires_brand VARCHAR(30) NOT NULL,
 	PRIMARY KEY (tires_type, tires_brand)
 );
 ```
