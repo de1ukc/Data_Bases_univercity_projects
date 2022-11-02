@@ -148,7 +148,16 @@ CREATE TABLE grand_prix(
 );
 ```
 
-```SQL```
+#### 2.12. Logs table
+```SQL
+CREATE TABLE logs(
+	log_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	
+	date_of_log DATE NOT NULL,
+	time_of_log TIME NOT NULL,
+	log_message VARCHAR(200) NOT NULL
+);
+```
 
 
 
