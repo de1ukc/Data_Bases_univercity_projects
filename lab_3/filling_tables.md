@@ -17,7 +17,7 @@ INSERT INTO teams
 (team_principal, budget, country, team_name)
 VALUES
 ('Toto Wolff', 145000000, 'Germany', 'Mercedes AMG Petronas F1 Team'),
-('Christian Horner', 145000000, 'United Kingdom', 'Oracle Red Bull Racing'),
+('Christian Horner', 145000000, 'Austria', 'Oracle Red Bull Racing'),
 ('Zak Brown', 145000000, 'United Kingdom', 'McLaren F1 Team'),
 ('Mike Krack', 145000000, 'United Kingdom', 'Aston Martin Aramco Cognizant F1 Team'),
 ('Otmar Szafnauer', 145000000, 'France', 'BWT Alpine F1 Team'),
