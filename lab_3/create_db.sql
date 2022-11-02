@@ -106,3 +106,11 @@ CREATE TABLE grand_prix(
 	track_id INT REFERENCES tracks(track_id) ON UPDATE CASCADE ON DELETE NO ACTION
 	
 );
+
+CREATE TABLE logs(
+	log_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	
+	date_of_log DATE NOT NULL,
+	time_of_log TIME NOT NULL,
+	log_message VARCHAR(200) NOT NULL
+);
