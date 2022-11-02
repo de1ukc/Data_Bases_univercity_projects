@@ -19,7 +19,7 @@ CREATE TABLE tires(
 ```SQL
 CREATE TABLE tracks(
 	track_id int4 PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-	circle_length DECIMAL NOT NULL,
+	circle_length_km DECIMAL NOT NULL,
 	number_of_circles INT NOT NULL,
 	country VARCHAR(30) NOT NULL,
 	importance_of_pole INT NOT NULL,
