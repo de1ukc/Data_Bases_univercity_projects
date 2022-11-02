@@ -20,7 +20,7 @@ VALUES
 ('Christian Horner', 145000000, 'United Kingdom', 'Oracle Red Bull Racing'),
 ('Zak Brown', 145000000, 'United Kingdom', 'McLaren F1 Team'),
 ('Mike Krack', 145000000, 'United Kingdom', 'Aston Martin Aramco Cognizant F1 Team'),
-('Otmar Szafnauer', 145000000, 'United Kingdom', 'BWT Alpine F1 Team'),
+('Otmar Szafnauer', 145000000, 'France', 'BWT Alpine F1 Team'),
 ('Mattia Binotto', 145000000, 'Italy', 'Scuderia Ferrari'),
 ('Jody Egginton', 145000000, 'Italy', 'Scuderia AlphaTauri'),
 ('Frédéric Vasseur', 145000000, 'Italy', 'Alfa Romeo F1 Team ORLEN'),
