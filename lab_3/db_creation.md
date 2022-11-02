@@ -138,7 +138,7 @@ CREATE TABLE grand_prix(
 	grand_prix_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 	date_of_gran_prix DATE NOT NULL,
 	weather VARCHAR(30),  -- если я не указал NOT NULL она ведь может быть NULL, да, энакин?
-	track_name VARCHAR(30) NOT NULL UNIQUE,
+	grand_prix_name VARCHAR(30) NOT NULL UNIQUE,
 	
 	winner_id INT REFERENCES pilots(pilot_id) ON UPDATE CASCADE ON DELETE NO ACTION, -- оно ведь тоже NULLABLE???
 	quali_winner_id INT REFERENCES pilots(pilot_id) ON UPDATE CASCADE ON DELETE NO ACTION,
