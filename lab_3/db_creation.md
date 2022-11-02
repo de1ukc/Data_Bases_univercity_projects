@@ -22,7 +22,6 @@ CREATE TABLE tracks(
 	circle_length_km DECIMAL NOT NULL,
 	number_of_circles INT NOT NULL,
 	country VARCHAR(30) NOT NULL,
-	importance_of_pole INT NOT NULL,
 	name_of_track VARCHAR(30) UNIQUE NOT NULL
 );
 ```
