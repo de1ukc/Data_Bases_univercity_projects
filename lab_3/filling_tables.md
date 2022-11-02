@@ -126,13 +126,6 @@ VALUES
 
 ```
 
-Решил добавить полную дистанцию гонки дополнительным параметром трека
-
-```SQL
-ALTER TABLE tracks ADD 
-	race_distance_km DECIMAL;
-```
-
 #### 1.6. Pilots table
 ```SQL
 INSERT INTO pilots
