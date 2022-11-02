@@ -105,7 +105,7 @@ CREATE TABLE cars(
 	-- cars_max_speed DECIMAL NOT NULL,
 	team_id INT REFERENCES teams(team_id) ON UPDATE CASCADE ON DELETE NO ACTION,
 	-- cars_power INT NOT NULL CHECK(cars_power > 0 AND cars_power <= 100),
-	cars_name VARCHAR(30) UNIQUE NOT NULL
+	cars_name VARCHAR(50) UNIQUE NOT NULL
 );
 ```
 
