@@ -159,3 +159,57 @@ VALUES
 ('Nicholas', 'Daniel', 'Latifi', 'Goatifi', 'Canada', 6, 0, 72, 10, 8, 9),
 ('George', 'William', 'Russell', 'Mr. Saturday', 'United Kingdom', 63, 0, 82, 10, 8, 250);
 ```
+
+#### 1.7. Grand Prix table
+```SQL
+INSERT INTO grand_prix
+(grand_prix_name, date_of_gran_prix, track_id, weather, quali_winner_id, winner_id)
+VALUES
+('Bahrain Grand Prix','2021-03-28', 1, NULL,32, 29),
+('Emilia-Romagna Grand Prix','2021-04-18', 2, NULL,29, 32),
+('Portuguese Grand Prix','2021-05-02', 3, NULL,30, 29),
+('Spanish Grand Prix','2021-05-09', 4, NULL,29, 29),
+('Monaco Grand Prix','2021-05-23', 5, NULL,23, 32),
+('Azerbaijan Grand Prix','2021-06-06', 6, NULL,23, 31),
+('French Grand Prix','2021-06-20', 7, NULL,32, 32),
+('Styrian Grand Prix','2021-06-27', 8, NULL,32, 32),
+('Austrian Grand Prix','2021-07-04', 8, NULL,32, 32),
+('British Grand Prix','2021-07-18', 9, NULL,29, 29),
+('Hungarian Grand Prix','2021-08-01', 10, NULL,29, 20),
+('Belgian Grand Prix','2021-08-29', 11, NULL,32, 32),
+('Dutch Grand Prix','2021-09-05', 12, NULL,32, 32),
+('Italian Grand Prix','2021-09-12', 13, NULL,30, 27),
+('Russian Grand Prix','2021-09-26', 14, NULL,28, 29),
+('Turkish Grand Prix','2021-10-10', 15, NULL,29, 30),
+('United States Grand Prix','2021-10-24', 16, NULL,32, 32),
+('Mexico City Grand Prix','2021-11-07', 17, NULL,30, 32),
+('Sao Paulo Grand Prix','2021-11-14', 18, NULL,29, 29),
+('Qatari Grand Prix','2021-11-21', 19, NULL,29, 29),
+('Saudi Arabian Grand Prix','2021-12-05', 20, NULL,29, 29),
+('Abu Dhabi Grand Prix','2021-12-12', 21, NULL,32, 32);
+
+
+-- Если не нужно настоящие результаты гран-при
+-- ('Bahrain Grand Prix','2021-03-28', 1, NULL, NULL, NULL),
+-- ('Emilia-Romagna Grand Prix','2021-04-18', 2, NULL, NULL, NULL),
+-- ('Portuguese Grand Prix','2021-05-02', 3, NULL, NULL, NULL),
+-- ('Spanish Grand Prix','2021-05-09', 4, NULL, NULL, NULL),
+-- ('Monaco Grand Prix','2021-05-23', 5, NULL, NULL, NULL),
+-- ('Azerbaijan Grand Prix','2021-06-06', 6, NULL, NULL, NULL),
+-- ('French Grand Prix','2021-06-20', 7, NULL, NULL, NULL),
+-- ('Styrian Grand Prix','2021-06-27', 8, NULL, NULL, NULL),
+-- ('Austrian Grand Prix','2021-07-04', 8, NULL, NULL, NULL),
+-- ('British Grand Prix','2021-07-18', 9, NULL, NULL, NULL),
+-- ('Hungarian Grand Prix','2021-08-01', 10, NULL, NULL, NULL),
+-- ('Belgian Grand Prix','2021-08-29', 11, NULL, NULL, NULL),
+-- ('Dutch Grand Prix','2021-09-05', 12, NULL, NULL, NULL),
+-- ('Italian Grand Prix','2021-09-12', 13, NULL, NULL, NULL),
+-- ('Russian Grand Prix','2021-09-26', 14, NULL, NULL, NULL),
+-- ('Turkish Grand Prix','2021-10-10', 15, NULL, NULL, NULL),
+-- ('United States Grand Prix','2021-10-24', 16, NULL, NULL, NULL),
+-- ('Mexico City Grand Prix','2021-11-07', 17, NULL, NULL, NULL),
+-- ('Sao Paulo Grand Prix','2021-11-14', 18, NULL, NULL, NULL),
+-- ('Qatari Grand Prix','2021-11-21', 19, NULL, NULL, NULL),
+-- ('Saudi Arabian Grand Prix','2021-12-05', 20, NULL, NULL, NULL),
+-- ('Abu Dhabi Grand Prix','2021-12-12', 21, NULL, NULL, NULL);
+```
