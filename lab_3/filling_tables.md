@@ -105,7 +105,8 @@ VALUES
 ('Acronis'),
 ('Lavazza'),
 ('Bremont'),
-('Carrera');
+('Carrera'),
+('Microsoft');
 ```
 #### 1.5. Cars table
 ```SQL
