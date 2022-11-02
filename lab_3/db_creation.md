@@ -117,15 +117,15 @@ CREATE TABLE pilots(
 	
 	first_name VARCHAR(30) NOT NULL,
 	second_name VARCHAR(30) NOT NULL,
-	surname_name VARCHAR(30) NOT NULL,
-	nickname VARCHAR(30) NOT NULL UNIQUE,
+	surname_name VARCHAR(30),
+	nickname VARCHAR(30) UNIQUE,
 	country VARCHAR(30) NOT NULL,
 	pilots_number INT NOT NULL UNIQUE CHECK(pilots_number > 0 AND pilots_number < 100),
-	height INT NOT NULL,
-	weight DECIMAL NOT NULL,
+	-- height INT NOT NULL,
+	-- weight DECIMAL NOT NULL,
 	wdc INT NOT NULL DEFAULT 0,
 	rating INT NOT NULL CHECK(rating > 0 AND rating <= 100),
-	price INT NOT NULL,
+	-- price INT NOT NULL,
 	
 	team_id INT REFERENCES teams(team_id) ON UPDATE CASCADE ON DELETE NO ACTION,
 	car_id INT REFERENCES cars(car_id) ON UPDATE CASCADE ON DELETE NO ACTION
@@ -157,6 +157,10 @@ CREATE TABLE logs(
 	log_message VARCHAR(200) NOT NULL
 );
 ```
-
+#### Решил добавить колунку очков пилотам
+```SQL
+ALTER TABLE pilots
+	ADD COLUMN points INT CHECK(points >= 0);
+```
 
 
