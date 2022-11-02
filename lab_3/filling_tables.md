@@ -107,4 +107,55 @@ VALUES
 ('Bremont'),
 ('Carrera');
 ```
+#### 1.5. Cars table
+```SQL
+INSERT INTO cars
+(engine_by_team_id, team_id, cars_name)
+VALUES
+(1,1,'Mercedes-AMG F1 W12 E Performance'),
+(2,2,'Red Bull Racing RB16'),
+(1,4,'Aston Martin AMR21'),
+(6,6,'Ferrari SF21'),
+(2,7,'AlphaTauri AT02'),
+(6,8,'Alfa Romeo Racing C41'),
+(6,9,'Haas VF-21'),
+(1,10,'Williams FW43'),
+(5,5,'Alpine A521'),
+(1,3,'McLaren MCL35');
 
+```
+
+Решил добавить полную дистанцию гонки дополнительным параметром трека
+
+```SQL
+ALTER TABLE tracks ADD 
+	race_distance_km DECIMAL;
+```
+
+#### 1.6. Pilots table
+```SQL
+INSERT INTO pilots
+	(first_name, surname,second_name, nickname, country, pilots_number,
+	wdc, rating, team_id, car_id, points)
+VALUES
+('Kimi', 'Matias','Räikkönen', 'The Iceman', 'Finland', 7, 1, 87, 8, 6, 1873),
+('Antonio', 'Maria','Giovinazzi', NULL , 'Italy', 99, 0, 81, 8, 6, 21),
+('Pierre', NULL,'Gasly', NULL, 'France', 10, 0, 88, 7, 5, 332),
+('Yuki', NULL,'Tsunoda', NULL, 'Japan', 22, 0, 77, 7, 5, 44),
+('Fernando', 'Díaz','Alonso', 'El Nano', 'Spain', 14, 2, 89, 5, 9, 2051),
+('Esteban', 'José Jean-Pierre','Ocon', 'Teflonso', 'Spain', 31, 0, 83, 5, 9, 354),
+('Sebastian', NULL, 'Vettel', 'The Finger', 'Germany', 5, 4, 90, 4, 3, 3097),
+('Lance', NULL, 'Stroll', NULL, 'Canada', 18, 0, 82, 4, 3, 189),
+('Charles', 'Marc Hervé Perceval', 'Leclerc', NULL, 'Monaco', 16, 0, 89, 6, 4, 835),
+('Carlos', 'Vázquez de Castro', 'Sainz', NULL, 'Spain', 55, 0, 89, 6, 4, 748),
+('Nikita', 'Dmitryevich ', 'Mazepin', 'Mazespin', 'Russia', 9, 0, 67, 9, 7, 0),
+('Mick', NULL, 'Schumacher', NULL, 'Germany', 47, 0, 79, 9, 7, 12),
+('Daniel', 'Joseph', 'Ricciardo', 'The Honey Badger', 'Australia', 3, 0, 89, 3, 10, 1309),
+('Lando', NULL, 'Norris', NULL, 'United Kingdom', 4, 0, 89, 3, 10, 417),
+('Lewis', 'Carl Davidson', 'Hamilton', 'Billion Dollar Man', 'United Kingdom', 44, 7, 94, 1, 1, 4381),
+('Valtteri', 'Viktor', 'Bottas', 'Robottas', 'Finland', 77, 0, 90, 1, 1, 1785),
+('Sergio', 'Michel', 'Pérez', 'Checo', 'Mexico', 11, 0, 87, 2, 2, 1176),
+('Max', 'Emilian', 'Verstappen', 'Mad Max', 'Netherlands', 33, 0, 93, 2, 2, 1973),
+('Nicholas', 'Daniel', 'Latifi', 'Goatifi', 'Canada', 6, 0, 72, 10, 8, 9),
+('George', 'William', 'Russell', 'Mr. Saturday', 'United Kingdom', 63, 0, 82, 10, 8, 250);
+```
