@@ -22,3 +22,11 @@ SELECT (pilots.first_name,  pilots.surname, pilots.second_name, pilots.nickname,
 WHERE pilot_id in (SELECT winner_id FROM grand_prix
 				  WHERE grand_prix_name = 'Bahrain Grand Prix');
 ```
+
+#### Выбираем гран-при, которые начинаются с буквы 'A' и достаём их, начиная со второго
+
+```SQL
+SELECT * from grand_prix
+	WHERE grand_prix_name LIKE 'A%'
+	offset 1;
+```
