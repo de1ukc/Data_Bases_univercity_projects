@@ -92,7 +92,10 @@ ORDER BY pilots.wdc;
 Если здесь заменить INNER JOIN на OUTER JOIN, то будут выведены абсолютно все пилоты сезона, а в столбце Гран-При будет null у тех пилотов, кто не выигрывал в сезоне.
 
 #### 3.2. OUTER JOIN
-
+```SQL
+SELECT teams.team_name, teams.team_principal, teams.country, cars.cars_name
+FROM teams FULL JOIN cars ON cars.team_id = teams.team_id;
+```
 
 
 ### 4. Union объекдинения:
