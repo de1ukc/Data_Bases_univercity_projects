@@ -91,12 +91,20 @@ ORDER BY pilots.wdc;
 ```
 Если здесь заменить INNER JOIN на OUTER JOIN, то будут выведены абсолютно все пилоты сезона, а в столбце Гран-При будет null у тех пилотов, кто не выигрывал в сезоне.
 
-#### 3.2. OUTER JOIN
+#### 3.2. FULL + INNER JOIN (достаём спонсоров каждой команды по алфавиту(команды))
 ```SQL
-SELECT teams.team_name, teams.team_principal, teams.country, cars.cars_name
-FROM teams FULL JOIN cars ON cars.team_id = teams.team_id;
+SELECT teams.team_name, teams.team_principal, teams.country, sponsors.sponsor_name
+FROM teams 
+FULL JOIN sponsors_and_teams ON sponsors_and_teams.team_id = teams.team_id
+JOIN sponsors ON sponsors.sponsor_id = sponsors_and_teams.sponsor_id
+ORDER BY teams.team_name;
 ```
-
+#### 3.3. OUTER JOIN (Достаём всех пилотов и приклеиваем название команды)
+```SQL
+SELECT pilots.first_name, pilots.nickname, pilots.second_name, teams.team_name, 
+pilots.pilots_number, pilots.country, pilots.points, pilots.rating, pilots.wdc
+FROM pilots LEFT JOIN teams ON teams.team_id = pilots.team_id;
+```
 
 ### 4. Union объекдинения:
 
