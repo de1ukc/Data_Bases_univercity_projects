@@ -114,3 +114,18 @@ CREATE TABLE logs(
 	time_of_log TIME NOT NULL,
 	log_message VARCHAR(200) NOT NULL
 );
+
+CREATE TABLE champions (
+	champion_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	
+	first_name VARCHAR(30) NOT NULL,
+	second_name VARCHAR(30) NOT NULL,
+	surname VARCHAR(30) ,
+	nickname VARCHAR(30) UNIQUE,
+	country VARCHAR(30) NOT NULL,
+	champion_number INT NOT NULL UNIQUE CHECK(champion_number > 0 AND champion_number < 100),
+	wdc INT NOT NULL DEFAULT 0,
+	
+	team_id INT REFERENCES teams(team_id) ON UPDATE CASCADE ON DELETE NO ACTION,
+	car_id INT REFERENCES cars(car_id) ON UPDATE CASCADE ON DELETE NO ACTION
+);
