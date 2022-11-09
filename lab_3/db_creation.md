@@ -163,4 +163,21 @@ ALTER TABLE pilots
 	ADD COLUMN points INT CHECK(points >= 0);
 ```
 
+#### 2.13. Champions table - фиктивная таблица, которая нужна только для заполнения её потом через INSERT ONTO SELECT
+```SQL
+CREATE TABLE champions (
+	champion_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	
+	first_name VARCHAR(30) NOT NULL,
+	second_name VARCHAR(30) NOT NULL,
+	surname VARCHAR(30) ,
+	nickname VARCHAR(30) UNIQUE,
+	country VARCHAR(30) NOT NULL,
+	champion_number INT NOT NULL UNIQUE CHECK(champion_number > 0 AND champion_number < 100),
+	wdc INT NOT NULL DEFAULT 0,
+	
+	team_id INT REFERENCES teams(team_id) ON UPDATE CASCADE ON DELETE NO ACTION,
+	car_id INT REFERENCES cars(car_id) ON UPDATE CASCADE ON DELETE NO ACTION
+);
+```
 
