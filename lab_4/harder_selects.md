@@ -17,6 +17,8 @@ SELECT sponsor_name FROM sponsors
 
 ### 2. Запросы с GROUP BY:
 
+HAVING - постфильтрация
+
 #### 2.1. Адекватная группировка с агрегатной функцией (Количество треков с количеством кругом более 55 и длиной круга больше 4 км) 
 ```SQL
 SELECT number_of_circles, COUNT(number_of_circles)
