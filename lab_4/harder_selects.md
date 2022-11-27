@@ -221,3 +221,26 @@ SELECT _выражение1
 INTERSECT SELECT _выражение2
 ```
 
+#### Представления
+
+Победители с Гран-При, отсортированные по чемпионствам
+```SQL
+CREATE VIEW winners_full AS
+	SELECT pilots.first_name, pilots.second_name, cars.cars_name, grand_prix.grand_prix_name
+	FROM pilots
+	JOIN cars ON cars.car_id = pilots.car_id
+	JOIN grand_prix ON grand_prix.winner_id = pilots.pilot_id
+	ORDER BY pilots.wdc DESC;
+```
+
+Победители гран-при сезона с количеством побед, отсортированные по убыванию
+```SQL
+CREATE VIEW winners AS
+	SELECT pilots.first_name, pilots.second_name , COUNT(grand_prix.winner_id) as cnt 
+		FROM pilots
+		LEFT JOIN grand_prix ON pilots.pilot_id = grand_prix.winner_id
+		GROUP BY pilots.first_name, pilots.second_name
+		HAVING COUNT(grand_prix.winner_id) > 0
+		ORDER BY cnt DESC;
+```
+
