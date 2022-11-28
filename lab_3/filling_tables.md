@@ -130,28 +130,28 @@ VALUES
 ```SQL
 INSERT INTO pilots
 	(first_name, surname,second_name, nickname, country, pilots_number,
-	wdc, rating, team_id, car_id, points)
+	wdc, rating, team_id, car_id, points, wins_count)
 VALUES
-('Kimi', 'Matias','Räikkönen', 'The Iceman', 'Finland', 7, 1, 87, 8, 6, 1873),
+('Kimi', 'Matias','Räikkönen', 'The Iceman', 'Finland', 7, 1, 87, 8, 6, 1873, 21),
 ('Antonio', 'Maria','Giovinazzi', NULL , 'Italy', 99, 0, 81, 8, 6, 21),
-('Pierre', NULL,'Gasly', NULL, 'France', 10, 0, 88, 7, 5, 332),
+('Pierre', NULL,'Gasly', NULL, 'France', 10, 0, 88, 7, 5, 332, 1),
 ('Yuki', NULL,'Tsunoda', NULL, 'Japan', 22, 0, 77, 7, 5, 44),
-('Fernando', 'Díaz','Alonso', 'El Nano', 'Spain', 14, 2, 89, 5, 9, 2051),
-('Esteban', 'José Jean-Pierre','Ocon', 'Teflonso', 'Spain', 31, 0, 83, 5, 9, 354),
-('Sebastian', NULL, 'Vettel', 'The Finger', 'Germany', 5, 4, 90, 4, 3, 3097),
+('Fernando', 'Díaz','Alonso', 'El Nano', 'Spain', 14, 2, 89, 5, 9, 2051, 32),
+('Esteban', 'José Jean-Pierre','Ocon', 'Teflonso', 'Spain', 31, 0, 83, 5, 9, 354, 1),
+('Sebastian', NULL, 'Vettel', 'The Finger', 'Germany', 5, 4, 90, 4, 3, 3097, 53),
 ('Lance', NULL, 'Stroll', NULL, 'Canada', 18, 0, 82, 4, 3, 189),
-('Charles', 'Marc Hervé Perceval', 'Leclerc', NULL, 'Monaco', 16, 0, 89, 6, 4, 835),
-('Carlos', 'Vázquez de Castro', 'Sainz', NULL, 'Spain', 55, 0, 89, 6, 4, 748),
+('Charles', 'Marc Hervé Perceval', 'Leclerc', NULL, 'Monaco', 16, 0, 89, 6, 4, 835, 5),
+('Carlos', 'Vázquez de Castro', 'Sainz', NULL, 'Spain', 55, 0, 89, 6, 4, 748, 1),
 ('Nikita', 'Dmitryevich ', 'Mazepin', 'Mazespin', 'Russia', 9, 0, 67, 9, 7, 0),
 ('Mick', NULL, 'Schumacher', NULL, 'Germany', 47, 0, 79, 9, 7, 12),
-('Daniel', 'Joseph', 'Ricciardo', 'The Honey Badger', 'Australia', 3, 0, 89, 3, 10, 1309),
+('Daniel', 'Joseph', 'Ricciardo', 'The Honey Badger', 'Australia', 3, 0, 89, 3, 10, 1309, 8),
 ('Lando', NULL, 'Norris', NULL, 'United Kingdom', 4, 0, 89, 3, 10, 417),
-('Lewis', 'Carl Davidson', 'Hamilton', 'Billion Dollar Man', 'United Kingdom', 44, 7, 94, 1, 1, 4381),
-('Valtteri', 'Viktor', 'Bottas', 'Robottas', 'Finland', 77, 0, 90, 1, 1, 1785),
-('Sergio', 'Michel', 'Pérez', 'Checo', 'Mexico', 11, 0, 87, 2, 2, 1176),
-('Max', 'Emilian', 'Verstappen', 'Mad Max', 'Netherlands', 33, 0, 93, 2, 2, 1973),
+('Lewis', 'Carl Davidson', 'Hamilton', 'Billion Dollar Man', 'United Kingdom', 44, 7, 94, 1, 1, 4381, 103),
+('Valtteri', 'Viktor', 'Bottas', 'Robottas', 'Finland', 77, 0, 90, 1, 1, 1785, 10),
+('Sergio', 'Michel', 'Pérez', 'Checo', 'Mexico', 11, 0, 87, 2, 2, 1176, 4),
+('Max', 'Emilian', 'Verstappen', 'Mad Max', 'Netherlands', 33, 0, 93, 2, 2, 1973, 35),
 ('Nicholas', 'Daniel', 'Latifi', 'Goatifi', 'Canada', 6, 0, 72, 10, 8, 9),
-('George', 'William', 'Russell', 'Mr. Saturday', 'United Kingdom', 63, 0, 82, 10, 8, 250);
+('George', 'William', 'Russell', 'Mr. Saturday', 'United Kingdom', 63, 0, 82, 10, 8, 250, 1);
 ```
 
 #### 1.7. Grand Prix table
