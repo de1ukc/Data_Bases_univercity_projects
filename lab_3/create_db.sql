@@ -89,6 +89,7 @@ CREATE TABLE pilots(
 	weight DECIMAL NOT NULL,
 	wdc INT NOT NULL DEFAULT 0,
 	rating INT NOT NULL CHECK(rating > 0 AND rating <= 100),
+	wins_count INT DEFAULT 0 NOT NULL,
 	price INT NOT NULL,
 	
 	team_id INT REFERENCES teams(team_id) ON UPDATE CASCADE ON DELETE NO ACTION,
