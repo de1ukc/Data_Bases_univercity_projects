@@ -4,7 +4,7 @@
 CREATE OR REPLACE FUNCTION inc_winc_count() RETURNS TRIGGER AS $wins_count$
 	BEGIN 
 	
-	IF OLD.winner_id != NEW.winner_id THEN
+	IF OLD.winner_id != NEW.winner_id AND OLD.winner_id IS NOT NULL THEN
 	
 		UPDATE pilots
 		SET wins_count = wins_count + 1
