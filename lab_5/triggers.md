@@ -35,3 +35,46 @@ UPDATE pilots
 	SET wins_count = 103
 	WHERE pilot_id = 29;
 ```
+
+
+#### 2. Логирование победителей Гранд-При
+
+```SQL
+CREATE OR REPLACE FUNCTION wins_logging() RETURNS TRIGGER AS $wins_logging$
+	BEGIN
+	IF OLD.winner_id IS NULL AND NEW.winner_id IS NOT NULL THEN
+		INSERT INTO logs
+		(date_of_log,time_of_log, log_message)
+		VALUES
+		(CAST(NOW() AS DATE), cast(NOW() AS TIME), 
+		 (SELECT first_name || ' ' || second_name 
+			FROM pilots
+		   	WHERE pilot_id = NEW.winner_id) || ' wins ' || NEW.grand_prix_name);
+		RETURN NEW;
+	END IF;
+	RETURN NULL; -- возвращаемое значение для триггера AFTER игнорируется
+END;
+$wins_logging$ LANGUAGE plpgsql;
+
+CREATE TRIGGER wins_logging
+AFTER INSERT OR UPDATE ON grand_prix
+	FOR EACH ROW EXECUTE PROCEDURE wins_logging();
+```
+
+Проверка:
+
+```SQL
+UPDATE grand_prix
+	SET winner_id = NULL
+	WHERE grand_prix.grand_prix_id = 1;
+	
+UPDATE grand_prix
+	SET winner_id = 29
+	WHERE grand_prix.grand_prix_id = 1;
+
+UPDATE pilots
+SET wins_count = 103
+WHERE pilot_id = 29;
+
+SELECT * FROM logs;
+```
