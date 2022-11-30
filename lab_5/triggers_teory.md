@@ -53,5 +53,5 @@ LANGUAGE  plpgsql;
 
 
 
-
+https://postgrespro.ru/docs/postgresql/9.6/plpgsql-trigger
 
