@@ -244,3 +244,7 @@ CREATE VIEW winners AS
 		ORDER BY cnt DESC;
 ```
 
+
+#### о команде EXPLAIN
+
+https://postgrespro.ru/docs/postgrespro/9.5/using-explain
