@@ -77,3 +77,20 @@ $new_pilots_logging$ LANGUAGE plpgsql;
 CREATE TRIGGER new_pilots_logging
 AFTER INSERT ON pilots
 	FOR EACH ROW EXECUTE PROCEDURE new_pilots_logging();
+
+CREATE OR REPLACE FUNCTION delete_pilots_logging() RETURNS TRIGGER AS $delete_pilots_logging$
+	BEGIN
+	INSERT INTO logs
+	(date_of_log,time_of_log, log_message)
+		VALUES
+		(CAST(NOW() AS DATE), cast(NOW() AS TIME),
+			NEW.first_name || ' ' || NEW.second_name || ' ' || NEW.pilots_number ||
+		 ' left the paddock. Disqualification.'); 
+		 return OLD;
+	RETURN NULL; -- возвращаемое значение для триггера AFTER игнорируется
+END;
+$delete_pilots_logging$ LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_pilots_logging
+AFTER DELETE ON pilots
+	FOR EACH ROW EXECUTE PROCEDURE delete_pilots_logging();
