@@ -78,3 +78,28 @@ WHERE pilot_id = 29;
 
 SELECT * FROM logs;
 ```
+
+
+#### Логирование победителей квалификаций:
+
+```SQL
+CREATE OR REPLACE FUNCTION qualis_logging() RETURNS TRIGGER AS $qualis_logging$
+	BEGIN
+	IF OLD.quali_winner_id IS NULL AND NEW.quali_winner_id IS NOT NULL THEN
+		INSERT INTO logs
+		(date_of_log,time_of_log, log_message)
+		VALUES
+		(CAST(NOW() AS DATE), cast(NOW() AS TIME), 
+		 (SELECT first_name || ' ' || second_name 
+			FROM pilots
+		   	WHERE pilot_id = NEW.quali_winner_id) || ' wins ' || NEW.grand_prix_name || ' qualification');
+		RETURN NEW;
+	END IF;
+	RETURN NULL; -- возвращаемое значение для триггера AFTER игнорируется
+END;
+$qualis_logging$ LANGUAGE plpgsql;
+
+CREATE TRIGGER qualis_logging
+AFTER INSERT OR UPDATE ON grand_prix
+	FOR EACH ROW EXECUTE PROCEDURE qualis_logging();
+```
