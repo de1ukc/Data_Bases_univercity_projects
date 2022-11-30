@@ -80,7 +80,7 @@ SELECT * FROM logs;
 ```
 
 
-#### Логирование победителей квалификаций:
+#### 3. Логирование победителей квалификаций:
 
 ```SQL
 CREATE OR REPLACE FUNCTION qualis_logging() RETURNS TRIGGER AS $qualis_logging$
