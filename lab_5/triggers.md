@@ -144,3 +144,39 @@ CREATE TRIGGER delete_pilots_logging
 AFTER DELETE ON pilots
 	FOR EACH ROW EXECUTE PROCEDURE delete_pilots_logging();
 ```
+
+#### 6. Добавление пилота в таблицу чемпионов, если он заработал хотя бы 1 WDC
+```SQL
+CREATE OR REPLACE FUNCTION insert_champion() RETURNS TRIGGER AS $insert_champion$
+	BEGIN 
+	
+	IF (TG_OP = 'UPDATE') THEN
+		IF (OLD.wdc IS NULL AND NEW.wdc IS NOT NULL AND NEW.wdc > 0) THEN
+
+		INSERT INTO champions (first_name, second_name, surname, nickname, country, 
+		champion_number, wdc, team_id, car_id)
+		VALUES 
+		(NEW.first_name, NEW.second_name, NEW.surname, NEW.nickname, NEW.country, 
+		NEW.champion_number, NEW.wdc, NEW.team_id, NEW.car_id);
+
+		RETURN NEW;
+		END IF;
+	END IF;
+	
+	IF (TG_OP = 'INSERT') THEN
+		IF (NEW.wdc > 0) THEN
+			INSERT INTO champions (first_name, second_name, surname, nickname, country, 
+			champion_number, wdc, team_id, car_id)
+			VALUES 
+			(NEW.first_name, NEW.second_name, NEW.surname, NEW.nickname, NEW.country, 
+			NEW.champion_number, NEW.wdc, NEW.team_id, NEW.car_id);
+		END IF;
+	END IF;
+	
+	RETURN NULL;
+	END;
+	$insert_champion$ LANGUAGE plpgsql;
+
+CREATE TRIGGER insert_champion AFTER UPDATE OR INSERT ON pilots
+	FOR EACH ROW EXECUTE PROCEDURE insert_champion();
+```
