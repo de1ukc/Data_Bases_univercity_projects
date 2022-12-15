@@ -180,3 +180,23 @@ CREATE OR REPLACE FUNCTION insert_champion() RETURNS TRIGGER AS $insert_champion
 CREATE TRIGGER insert_champion AFTER UPDATE OR INSERT ON pilots
 	FOR EACH ROW EXECUTE PROCEDURE insert_champion();
 ```
+
+#### Если пользователь выбрал себе комманду, оторазить это в команде
+
+```SQL
+CREATE OR REPLACE FUNCTION take_team() RETURNS TRIGGER AS $take_team$
+	BEGIN
+	IF OLD.team_id IS NULL AND NEW.team_id IS NOT NULL THEN
+		UPDATE teams
+		SET is_taken = TRUE
+		WHERE teams.team_id = NEW.team_id;
+		RETURN NEW;
+	END IF;
+	RETURN NULL; -- возвращаемое значение для триггера AFTER игнорируется
+END;
+$take_team$ LANGUAGE plpgsql;
+
+CREATE TRIGGER take_team
+AFTER INSERT OR UPDATE ON users
+	FOR EACH ROW EXECUTE PROCEDURE take_team();
+```
