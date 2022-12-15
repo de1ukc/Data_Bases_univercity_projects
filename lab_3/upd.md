@@ -13,3 +13,10 @@ ALTER TABLE users
 ALTER COLUMN role_id
 SET DEFAULT 1;
 ```
+
+Добавлено поле, отображающее, была ли команда взята пользователем:
+
+```SQL
+ALTER TABLE teams
+ADD COLUMN is_taken BOOLEAN default false;
+```
