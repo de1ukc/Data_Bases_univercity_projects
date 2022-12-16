@@ -126,14 +126,13 @@ AFTER INSERT ON pilots
 ```
 
 #### 5. Логирование удалённых пилотов:
-```SQL
 CREATE OR REPLACE FUNCTION delete_pilots_logging() RETURNS TRIGGER AS $delete_pilots_logging$
 	BEGIN
 	INSERT INTO logs
 	(date_of_log,time_of_log, log_message)
 		VALUES
 		(CAST(NOW() AS DATE), cast(NOW() AS TIME),
-			NEW.first_name || ' ' || NEW.second_name || ' ' || NEW.pilots_number ||
+			OLD.first_name || ' ' || OLD.second_name || ' ' || OLD.pilots_number ||
 		 ' left the paddock. Disqualification.'); 
 		 return OLD;
 	RETURN NULL; -- возвращаемое значение для триггера AFTER игнорируется
