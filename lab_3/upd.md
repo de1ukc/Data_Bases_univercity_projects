@@ -20,3 +20,11 @@ SET DEFAULT 1;
 ALTER TABLE teams
 ADD COLUMN is_taken BOOLEAN default false;
 ```
+
+```SQL
+ALTER TABLE pilots
+ALTER COLUMN nickname SET DEFAULT null;
+
+ALTER TABLE pilots
+ALTER COLUMN surname SET DEFAULT null;
+```
