@@ -45,3 +45,69 @@ BEGIN
 end;
 
 ```
+
+#### 3. 
+```SQL
+CREATE OR REPLACE FUNCTION even_more
+    RETURN varchar2
+    IS
+
+    response     varchar2(10);
+    even_cnt     number;
+    not_even_cnt number;
+
+BEGIN
+    SELECT COUNT(*)
+    INTO even_cnt
+    FROM (SELECT val FROM MY_TABLE where MOD(val, 2) = 0);
+
+    not_even_cnt := 10000 - even_cnt;
+
+    IF even_cnt > not_even_cnt THEN
+        response := 'TRUE';
+    ELSIF even_cnt < not_even_cnt THEN
+        response := 'FALSE';
+    ELSE
+        response := 'EQUAL';
+    end if;
+
+    return response;
+end;
+
+```
+
+#### 4. 
+
+```SQL
+CREATE OR REPLACE FUNCTION check_id(in_id IN number)
+    RETURN varchar2
+    IS
+
+    val_from_table number;
+    response       varchar2(1000);
+
+BEGIN
+    SELECT val
+    INTO val_from_table
+    FROM MY_TABLE
+    WHERE ID = in_id;
+
+    response := 'insert into my_table
+                    (id, val)
+                    values
+                    (' || in_id || ', ' || val_from_table || ');';
+
+    return response;
+
+    exception
+    WHEN no_data_found THEN  return 'invalid id';
+
+end;
+```
+
+Проверка
+```SQL
+BEGIN
+    DBMS_OUTPUT.put_line(check_id(7000));
+END;
+```
