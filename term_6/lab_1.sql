@@ -18,3 +18,21 @@ begin
   into :new.id
   from dual;
 end;
+
+
+DECLARE
+    start_loop number;
+    end_loop   number;
+BEGIN
+    start_loop := 1;
+    end_loop := 10000;
+
+    WHILE (start_loop <= end_loop)
+        LOOP
+        INSERT INTO my_table
+            (val)
+            values (DBMS_RANDOM.RANDOM());
+
+            start_loop := start_loop + 1;
+        end loop;
+end;
