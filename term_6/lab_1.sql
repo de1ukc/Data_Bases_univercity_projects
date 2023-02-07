@@ -88,3 +88,24 @@ BEGIN
 
 end;
 
+CREATE OR REPLACE PROCEDURE add_line(in_val IN NUMBER) AS
+    BEGIN
+        INSERT INTO MY_TABLE
+            (VAL)
+        VALUES
+            (in_val);
+    end;
+    
+ CREATE OR REPLACE PROCEDURE remove_line(ID_in IN NUMBER) AS
+    BEGIN
+        DELETE FROM MY_TABLE
+            WHERE ID = ID_in;
+    end;
+    
+ CREATE OR REPLACE PROCEDURE update_line(ID_in IN NUMBER, val_in IN NUMBER) AS
+BEGIN
+    UPDATE MY_TABLE
+    SET VAL = val_in
+    WHERE ID = ID_in;
+end;
+
