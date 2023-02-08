@@ -109,3 +109,12 @@ BEGIN
     WHERE ID = ID_in;
 end;
 
+DECLARE
+    babochki NUMBER;
+    str VARCHAR2(500);
+begin
+    babochki := babki(1, 1.6);
+    str := 'Бабки, бабки, ска, бабки: ' || babochki;
+    dbms_output.put_line(str);
+end ;
+
