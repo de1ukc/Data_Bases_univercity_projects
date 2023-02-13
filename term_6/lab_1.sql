@@ -109,12 +109,26 @@ BEGIN
     WHERE ID = ID_in;
 end;
 
-DECLARE
-    babochki NUMBER;
-    str VARCHAR2(500);
-begin
-    babochki := babki(1, 1.6);
-    str := 'Бабки, бабки, ска, бабки: ' || babochki;
-    dbms_output.put_line(str);
-end ;
+
+
+CREATE OR REPLACE FUNCTION babki(month_salary IN NUMBER, procent IN NUMBER)
+    RETURN NUMBER
+    IS
+    na_hleb       NUMBER;
+    procent_float FLOAT;
+BEGIN
+    If procent < 0 OR month_salary <= 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Вводи нормально, жидяра');
+        return -1;
+    end if;
+    procent_float := procent / 100;
+    na_hleb := (1 + month_salary * procent_float) * 12 * month_salary;
+
+    return na_hleb;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        dbms_output.put_line('Internal error.');
+        return -1;
+end;
 
