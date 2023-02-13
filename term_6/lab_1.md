@@ -155,7 +155,7 @@ end;
 #### 6. 
 
 ```SQL
-CREATE OR REPLACE FUNCTION babki(month_salary IN NUMBER, procent IN INTEGER)
+CREATE OR REPLACE FUNCTION babki(month_salary IN NUMBER, procent IN NUMBER)
     RETURN NUMBER
     IS
     na_hleb       NUMBER;
@@ -170,23 +170,28 @@ BEGIN
 
     return na_hleb;
 
---     EXCEPTION
---         WHEN  THEN
---             DBMS_OUTPUT.PUT_LINE(' Обезьяна,нормально вводи');
---             return -1;
+EXCEPTION
+    WHEN OTHERS THEN
+        dbms_output.put_line('Internal error.');
+        return -1;
 end;
 ```
 
 проверка 
 ```SQL
 DECLARE
-    babochki NUMBER;
-    str VARCHAR2(500);
+    babochki     NUMBER;
+    str          VARCHAR2(500);
+    month_salary NUMBER;
+    procent      NUMBER;
 begin
-    babochki := babki(1, 1.6);
-    str := 'Бабки, бабки, ска, бабки: ' || babochki;
+    month_salary := 1;
+    procent := 1.6;
+
+    babochki := babki(1, 33);
+    str := 'Бабки, бабки, ****, бабки: ' || babochki;
     dbms_output.put_line(str);
-end ;
+end;
 ```
 
 
