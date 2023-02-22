@@ -9,6 +9,7 @@ CREATE TABLE STUDENTS
 
 );
 
+-- автоинкремент для студентов
 CREATE SEQUENCE students_sequence
     start with 1
     increment by 1;
@@ -22,7 +23,7 @@ begin
     into :NEW.id
     from DUAL;
 end;
-
+-- уникальный айди для студентика
 CREATE OR REPLACE TRIGGER check_unique_student_id
     before insert
     on STUDENTS
@@ -40,7 +41,6 @@ BEGIN
 end;
 
 -- триггеры с каскадным ForeignKey
-
 CREATE OR REPLACE TRIGGER students_cascade_delete_foreigh_key
     before delete
     on STUDENTS
@@ -62,7 +62,7 @@ BEGIN
     WHERE GROUPS.ID = :NEW.GROUP_ID;
 end;
 
-
+-- логирование
 CREATE OR REPLACE TRIGGER log_tg
     AFTER INSERT OR DELETE OR UPDATE
     ON STUDENTS
@@ -110,7 +110,7 @@ CREATE
     CONSTRAINT groups_pk PRIMARY KEY (ID)
 );
 
-
+--автоинкремент для групп
 CREATE
     SEQUENCE groups_sequence
     start
@@ -130,6 +130,7 @@ begin
     from DUAL;
 end;
 
+-- уникальные айдишники для групп
 CREATE
     OR
     REPLACE TRIGGER check_unique_group_id
@@ -146,9 +147,9 @@ BEGIN
     IF id_cnt <> 0 THEN
         RAISE not_unique_group_id;
     end if;
-
 end;
 
+--уникальное имя группы
 CREATE
     OR
     REPLACE TRIGGER check_unique_group_name
@@ -168,6 +169,7 @@ BEGIN
 
 end;
 
+-- удаление группы
 CREATE
     OR
     REPLACE TRIGGER delete_group
@@ -177,19 +179,6 @@ CREATE
     FOR EACH ROW
 BEGIN
     DELETE FROM STUDENTS WHERE GROUP_ID = :OLD.ID;
-end;
-
-create or replace
-    trigger
-    tt_trigger
-    before
-        insert
-    on my_table
-    for each row
-begin
-    select tt_sequence.nextval
-    into :new.id
-    from dual;
 end;
 
 
@@ -206,11 +195,8 @@ CREATE
     CONSTRAINT logs_pk PRIMARY KEY (log_id)
 );
 
-DROP
-    TABLE
-    logs;
 
--- определённый момент времени
+-- восстановление логов на определённый момент времени
 CREATE OR REPLACE PROCEDURE restore_rows_by_time(log_time CHAR) IS
     CURSOR logs_cur IS
         SELECT *
@@ -294,6 +280,7 @@ end;
 --     COMMIT;
 -- end;
 
+-- восстановление логов на промежуток времени
 CREATE OR REPLACE PROCEDURE restore_rows_by_interval(log_first_time CHAR, log_second_time CHAR) IS
     CURSOR logs_cur2 IS
         SELECT *
@@ -331,42 +318,3 @@ BEGIN
 end;
 
 ------------------------------------------------------
-
-
-SELECT *
-FROM STUDENTS;
-
-DELETE
-FROM STUDENTS
-WHERE ID = 46;
-
-INSERT INTO STUDENTS
-    (NAME, GROUP_ID)
-VALUES ('test 1', 5);
-
-
-SELECT *
-FROM GROUPS;
-
-SELECT *
-FROM LOGS;
-
-UPDATE GROUPS
-SET C_VAL = 0
-WHERE ID = 5;
-
-BEGIN
---     RESTORE_ROWS_BY_TIME(TO_CHAR('2023-02-22 11:35:48'));
-
-    RESTORE_ROWS_BY_INTERVAL(TO_CHAR('2023-02-22 11:08:00'), TO_CHAR('2023-02-22 11:08:53'));
-
-end;
-
-SELECT *
-FROM LOGS;
-
-SELECT *
-FROM LOGS
-WHERE time >= TO_TIMESTAMP(TO_CHAR('2023-02-22 11:08:00'), 'yyyy-mm-dd hh24:mi:ss')
-  AND time <= TO_TIMESTAMP(TO_CHAR('2023-02-22 11:08:53'), 'yyyy-mm-dd hh24:mi:ss')
-ORDER BY time;
