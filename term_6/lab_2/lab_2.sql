@@ -1,4 +1,3 @@
-
 -- создаём табличку студентов
 CREATE TABLE STUDENTS
 (
@@ -302,12 +301,31 @@ CREATE OR REPLACE PROCEDURE restore_rows_by_interval(log_first_time CHAR, log_se
         WHERE time >= TO_TIMESTAMP(log_first_time, 'yyyy-mm-dd hh24:mi:ss')
           AND time <= TO_TIMESTAMP(log_second_time, 'yyyy-mm-dd hh24:mi:ss')
         ORDER BY time;
+        gp_id NUMBER;
 
 BEGIN
     FOR log_val2 IN logs_cur2
         LOOP
-            DBMS_OUTPUT.PUT_LINE(TO_CHAR(log_val2.time));
-            RESTORE_ROWS_BY_TIME(TO_CHAR(log_val2.time));
+--             RESTORE_ROWS_BY_TIME(TO_CHAR(log_val2.time));
+
+        SELECT id INTO gp_id FROM GROUPS WHERE NAME = log_val2.GROUP_NAME;
+
+            IF log_val2.msg = 'has been deleted' THEN
+                INSERT INTO STUDENTS
+                    (NAME, GROUP_ID)
+                VALUES (log_val2.USER_NAME, gp_id);
+            ELSIF log_val2.msg = 'has been added' THEN
+                DELETE
+                FROM STUDENTS
+                WHERE NAME = log_val2.user_name;
+
+            ELSIF log_val2.msg = 'has been updated' THEN
+                UPDATE STUDENTS
+                SET NAME     = log_val2.USER_NAME,
+                    GROUP_ID = gp_id
+                WHERE ID = log_val2.old_id;
+            end if;
+
         end loop;
     COMMIT;
 end;
