@@ -172,8 +172,10 @@ create or replace trigger LAB5.students_history_tg
 
 
 CREATE OR REPLACE PACKAGE lab5.rollback_pkg IS
-  PROCEDURE rollback_changes(p_date_time DATE);
-  PROCEDURE rollback_changes_interval(p_interval NUMBER);
+  PROCEDURE rollback_changes(p_date_time IN DATE);
+  PROCEDURE rollback_changes(p_interval NUMBER);
+  --PROCEDURE kurv(p_interval NUMBER);
+
 END rollback_pkg;
 
 CREATE OR REPLACE PACKAGE BODY lab5.rollback_pkg IS
@@ -222,13 +224,13 @@ CREATE OR REPLACE PACKAGE BODY lab5.rollback_pkg IS
         end restore_students;
 
 
-    PROCEDURE rollback_changes(p_date_time DATE) IS
+    PROCEDURE rollback_changes(p_date_time IN DATE) IS
         CURSOR history_logs(op_date LAB5.history.operation_date%type) is
             select * from LAB5.history
                 where LAB5.history.operation_date >= op_date
                 order by LAB5.history.history_id DESC;
         BEGIN
-
+            DBMS_OUTPUT.PUT_LINE('rollback func!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
             for log in history_logs(p_date_time) loop
                 if log.table_name = 'CLASSES' then
                     restore_classes(log);
@@ -243,21 +245,14 @@ CREATE OR REPLACE PACKAGE BODY lab5.rollback_pkg IS
 
             END rollback_changes;
 
-    procedure buff(p_interval NUMBER) is
-        l_date_time TIMESTAMP;
+
+        PROCEDURE rollback_changes(p_interval NUMBER) IS
         begin
-            l_date_time := SYSDATE - NUMTODSINTERVAL(p_interval / 1000, 'SECOND');
-            rollback_changes(l_date_time);
-            end;
+            DBMS_OUTPUT.PUT_LINE('by interval &&&&&&&&&');
+         rollback_pkg.rollback_changes(SYSDATE - NUMTODSINTERVAL(p_interval / 1000, 'SECOND'));
+  END rollback_changes;
 
-  PROCEDURE rollback_changes_interval(p_interval NUMBER) IS
 
-  BEGIN
-    -- вычисляем время, которое нужно использовать для отката изменений
-
-    buff(p_interval);
-
-  END rollback_changes_interval;
 END rollback_pkg;
 
 --task 4
@@ -355,11 +350,12 @@ CREATE OR REPLACE PROCEDURE LAB5.report(date_time DATE) is
 -- tests
 ----------------------------------------------------------------------------------------------------
 
+delete from lab5.students where student_id = 2;
 
 select * from LAB5.STUDENTS;
 select * from LAB5.GROUPS;
 
-select * from lab5.history;
+select * from lab5.history order by history_id;
 
 
 update lab5.STUDENTS
@@ -369,7 +365,7 @@ where LAB5.STUDENTS.student_id=1;
 insert into LAB5.students
 (STUDENT_ID,student_NAME, GROUP_ID, class_id)
 values
-(1, 'aleh', 6, 2 );
+(3, 'loh', 3, 2 );
 
 
 
@@ -377,12 +373,18 @@ values
 insert into LAB5.GROUPS
 (GROUP_ID, GROUP_NAME)
 values
-(5, '053505');
+(103221, '103221');
 
 insert into LAB5.CLASSES
 (class_id, class_NAME)
 values
-(3,'lohhhh');
+(4,'vlad');
+
+update LAB5.CLASSES
+set class_NAME = 'vlad privet'
+where class_id = 4;
+
+
 
 
 drop table LAB5.STUDENTS;
@@ -395,18 +397,29 @@ ALTER TRIGGER LAB5.classes_history_tg DISABLE;
 ALTER TRIGGER LAB5.groups_history_tg DISABLE;
 ALTER TRIGGER LAB5.students_history_tg DISABLE;
 
-    LAB5.rollback_pkg.rollback_changes(TO_DATE('2023-04-30 21:39:15', 'YYYY-MM-DD hh24:MI:SS'));
+    call LAB5.rollback_pkg.rollback_changes(300000);
+--call LAB5.rollback_pkg.rollback_changes(TO_DATE('2023-05-03 13:57:32', 'YYYY-MM-DD hh24:MI:SS'));
 
 
 ALTER TRIGGER LAB5.classes_history_tg ENABLE ;
 ALTER TRIGGER LAB5.groups_history_tg ENABLE ;
 ALTER TRIGGER LAB5.students_history_tg ENABLE ;
 
-call lab5.report(TO_DATE('2023-04-30 21:29:59','YYYY-MM-DD hh24:MI:SS' ));
+select * from LAB5.STUDENTS;
+select * from LAB5.GROUPS;
+
+select * from lab5.history order by operation_date;
+
+
+call lab5.report(TO_DATE('2023-04-30 21:30:48','YYYY-MM-DD hh24:MI:SS' ));
 
 end;
 
+begin
+            DBMS_OUTPUT.PUT_LINE(TO_CHAR(SYSDATE - NUMTODSINTERVAL(360000 / 1000, 'SECOND'),
+                'YYYY-MM-DD hh24:MI:SS'));
 
+end;
 --дебаг
 
 ALTER PACKAGE LAB5.rollback_pkg COMPILE BODY;
