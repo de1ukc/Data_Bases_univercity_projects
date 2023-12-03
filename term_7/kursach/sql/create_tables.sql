@@ -23,7 +23,7 @@ create table pilots(
 	
 	first_name VARCHAR(30) NOT NULL,
 	second_name VARCHAR(30) NOT NULL,
-	last_name VARCHAR(30) NOT NULL,
+	last_name VARCHAR(30),
 	country_id INT NOT NULL,
 	pilots_number INT NOT NULL UNIQUE CHECK(pilots_number > 0 AND pilots_number < 100),
 	
@@ -281,4 +281,12 @@ create table race_weeks(
 	constraint  fk_race_weeks_quali_races foreign key (quali_id) references races(id),
 	constraint  fk_race_weeks_sprint_races foreign key (sprint_id) references races(id),
 	constraint  fk_race_weeks_seasons foreign key (season_id) references seasons(id)
+);
+
+
+CREATE TABLE logs (
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+
+    log_datetime TIMESTAMP DEFAULT current_timestamp,
+    description TEXT NOT NULL
 );
