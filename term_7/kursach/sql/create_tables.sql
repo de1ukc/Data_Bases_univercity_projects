@@ -30,6 +30,11 @@ create table pilots(
 	constraint  fk_pilots_countries foreign key (country_id) references country(id)
 ); 
 
+alter table pilots
+add column superlicence_points INT DEFAULT 1000;
+
+alter table pilots
+drop column pilots_number;
 -- drop table pilots;
 
 
@@ -290,3 +295,29 @@ CREATE TABLE logs (
     log_datetime TIMESTAMP DEFAULT current_timestamp,
     description TEXT NOT NULL
 );
+
+create table champions(
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	
+	pilot_id INT NOT NULL,
+	wdc int NOT NULL,
+	description TEXT,
+	
+	constraint  fk_champions_pilots foreign key (pilot_id) references pilots(id)
+)
+
+
+create table pilots_numbers(
+	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	
+	number INT NOT NULL,
+	pilot_id INT NOT NULL,
+	season_id INT NOT NULL,
+	
+	constraint  fk_pilots_numbers_season foreign key (season_id) references seasons(id),
+	constraint  fk_pilots_numbers_pilots foreign key (pilot_id) references pilots(id)
+)
+
+ALTER TABLE pilots_numbers
+ADD CONSTRAINT check_pilots_numbers_range CHECK (number > 0 AND number < 100);
+
