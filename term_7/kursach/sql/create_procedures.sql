@@ -108,15 +108,13 @@ BEGIN
     IF p_pilot_id IS NOT NULL THEN
         v_pilot_id := p_pilot_id;
     ELSE
-        -- Иначе ищем pilot_id по first_name и second_name
+        -- Ищем pilot_id по first_name и second_name
         SELECT id INTO v_pilot_id
         FROM pilots
         WHERE first_name = p_first_name AND second_name = p_second_name;
     END IF;
 
-    -- Проверяем, что pilot_id был успешно найден
     IF v_pilot_id IS NOT NULL THEN
-        -- Вставляем данные в таблицу pilots_statistic
         INSERT INTO pilots_statistic (wins, wdc, points, fastest_laps, pilot_id)
         VALUES (p_wins, p_wdc, p_points, p_fastest_laps, v_pilot_id);
     ELSE
@@ -124,6 +122,7 @@ BEGIN
     END IF;
 END;
 $$ LANGUAGE plpgsql;
+
 
 
 
@@ -151,9 +150,76 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE PROCEDURE add_document(
+    p_fact text,
+    p_decision text,
+    p_reason text
+) AS $$
+BEGIN
+    INSERT INTO documents (fact, decision, reason)
+    VALUES (p_fact, p_decision, p_reason);
+END;
+$$ LANGUAGE plpgsql;
 
-select * from get_champions();
+call add_document('Breaking the track limits', '-5 superlicence points', 'Breaking the track limits in turn 1, 7, 19')
+select * from documents;
 
 
+CREATE OR REPLACE PROCEDURE add_team_pilot(
+    p_team_id INT,
+    p_pilot_id INT,
+    p_valid_from TIMESTAMP DEFAULT current_timestamp,
+    p_valid_to TIMESTAMP DEFAULT current_timestamp + interval '1 year'
+) AS $$
+BEGIN
+    INSERT INTO teams_pilots (team_id, pilot_id, valid_from, valid_to)
+    VALUES (p_team_id, p_pilot_id, p_valid_from, p_valid_to);
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE OR REPLACE PROCEDURE insert_race_participants_documents(
+    p_race_id INT,
+    p_team_pilot_id INT,
+    p_document_id INT,
+	p_document_date TIMESTAMP DEFAULT current_timestamp
+) AS $$
+BEGIN
+	INSERT INTO race_participants_documents (race_id, team_pilot_id, document_id, document_date)
+	VALUES (p_race_id, p_team_pilot_id, p_document_id, p_document_date);
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE OR REPLACE FUNCTION get_pilots_with_statistic()
+RETURNS TABLE (
+    first_name VARCHAR(30),
+    second_name VARCHAR(30),
+	nickname VARCHAR(30),
+    wdc INT,
+    points INT,
+    wins INT,
+    fastest_laps INT
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        p.first_name,
+        p.second_name,
+		nn.nickname,
+        c.wdc,
+        ps.points,
+        ps.wins,
+        ps.fastest_laps
+    FROM pilots p
+    LEFT JOIN pilots_statistic ps ON ps.pilot_id = p.id
+	LEFT JOIN nicknames nn ON nn.pilot_id = p.id
+	left join champions c on c.pilot_id = p.id;
+END;
+$$ LANGUAGE plpgsql;
+
+select * from get_pilots_with_statistic();
 
 

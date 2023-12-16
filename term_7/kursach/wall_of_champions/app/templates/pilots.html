@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Pilots{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Pilots</h1>
+
+        <div class="row">
+            {% for pilot in pilots %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ pilot.first_name }} {{ pilot.second_name }} {{ pilot.last_name }}</h5>
+                        <p class="card-text">{{ pilot.nickname }}</p>
+                        <p class="card-text">Country: {{ pilot.country_name }}</p>
+                        <p class="card-text">Pilot Number: {{ pilot.pilots_number }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -30,6 +30,9 @@ create table pilots(
 	constraint  fk_pilots_countries foreign key (country_id) references country(id)
 ); 
 
+ALTER TABLE pilots
+ADD CONSTRAINT unique_name_combination_constraint UNIQUE (first_name, second_name, last_name);
+
 alter table pilots
 add column superlicence_points INT DEFAULT 1000;
 
@@ -271,6 +274,15 @@ create table race_participants_documents(
 	constraint fk_race_participants_documents_pilot foreign key (team_pilot_id) references teams_pilots(id)
 );
 	
+ALTER TABLE race_participants_documents
+DROP CONSTRAINT fk_race_participants_documents_pilot;
+
+-- Добавление нового ограничения с опцией ON DELETE CASCADE
+ALTER TABLE race_participants_documents
+ADD CONSTRAINT fk_race_participants_documents_pilot
+FOREIGN KEY (team_pilot_id)
+REFERENCES teams_pilots(id)
+ON DELETE CASCADE;
 
 create table race_weeks(
 	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,

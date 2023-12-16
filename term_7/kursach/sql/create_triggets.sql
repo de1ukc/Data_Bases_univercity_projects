@@ -40,7 +40,7 @@ BEGIN
     -- Уменьшаем суперлицензионные баллы на 5 при добавлении документа
     UPDATE pilots
     SET superlicence_points = superlicence_points - 5
-    WHERE id = NEW.team_pilot_id;
+    WHERE id = (select pilot_id from teams_pilots where id = NEW.team_pilot_id);
 
     RETURN NEW;
 END;
